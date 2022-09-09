@@ -56,7 +56,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 // GET A REQUEST*****************************
-router.get("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const doctor = await GetDoctor.findById(req.params.id);
     res.status(200).json(doctor);

@@ -2,7 +2,6 @@ const router = require("express").Router();
 const Hospital = require("../models/Hospital");
 const {
   verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
   verifyToken,
 } = require("./jwtoken");
 
@@ -56,7 +55,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 // GET A HOSPITAL*****************************
-router.get("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const hospital = await Hospital.findById(req.params.id);
     res.status(200).json(hospital);
@@ -66,7 +65,7 @@ router.get("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 // GET ALL HOSPITALS*****************************
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+router.get("/", verifyTokenAndAuthorization, async (req, res) => {
   const {q} = req.query;
   try {
     const hospital = q
